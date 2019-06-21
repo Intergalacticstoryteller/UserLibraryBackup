@@ -10,9 +10,10 @@ for /F "tokens=1,2,3 delims=_" %%i in ('PowerShell -Command "& {Get-Date -format
 
 REM Make a folder for this PC's user data to be put.
 set SaveDirectory=%computername%-%MONTH%.%DAY%.%YEAR%
-echo %SaveDirectory%
 mkdir P:\%SaveDirectory%
+
+REM Begin Copying. This will output a Backup.log file for your reference. 
 Robocopy C:\Users\ P:\%SaveDirectory% /MIR /XA:SH /XD AppData /XJD /R:5 /W:15 /MT:32 /V /NP /LOG:Backup.log
 
 REM Dismount backup drive
-REM net use P: /Delete
+net use P: /Delete
